@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Study]]></title><description><![CDATA[Obsidian digital garden]]></description><link>http://github.com/dylang/node-rss</link><image><url>lib\media\favicon.png</url><title>Study</title><link></link></image><generator>Webpage HTML Export plugin for Obsidian</generator><lastBuildDate>Wed, 25 Jun 2025 01:03:21 GMT</lastBuildDate><atom:link href="lib\rss.xml" rel="self" type="application/rss+xml"/><pubDate>Wed, 25 Jun 2025 01:03:13 GMT</pubDate><ttl>60</ttl><dc:creator></dc:creator><item><title><![CDATA[CLT]]></title><description><![CDATA[ 
+ Start Slide<br>
+<br>
+<br>In Particular for , <br>Regret bound<br>Algorithm:<br>
+Set all weights to 1<br>
+At round <br>
+<br>Prediction: 
+
+<br>
+
+<br> Prediction of the  expert
+<br> weight of  expert
+
+
+
+
+<br>Weight Update:
+
+<br>
+<br>Since,  is the total loss incurred by the  expert after  rounds, we can see that 
+
+
+<br>We do not need to maintain the full history, cumulative performance is sufficient for weight update.<br>Exponential Weighted Average Algorithm<br>
+<br>Weighted Majority suffers from a limitation that the regret of the algorithm is a constant times the number of rounds.
+<br>RWM exhibits regret which depends on T which is  which is attractive.
+<br>Can we develop a deterministic algorithm which exhibits the same dependence on T as the RWM algorithm?
+<br>This is proven in Exponential Weighted Average Algorithm<img src="pasted-image-20250624161615.png" draggable="false">Pasted image 20250624161615.png<br>Limitations of Weighted Majority Algorithm<br>
+<br>Key drawback of all deterministic algorithms
+<br>Regret for any sequence of length of length  is <br>
+ cannot be generally achieved
+<img src="pasted-image-20250624142608.png" draggable="false">Pasted image 20250624142608.png<br>Halving Algorithm<br>
+<br>: Finite hypothesis set
+<br>
+<br>Each time the hypothesis makes a mistake, remove all the wrong experts (which is at least half of the remaining experts).
+<br>Number of mistakes will not be less than  of the size of hypothesis set.
+<br>Weighted Majority Algorithm<br>
+<br>Begin with uniform weights for all experts.
+<br>At each round, it generate predictions based on a weighted majority of the weighted majority of the opinions of all experts.
+<br>After receiving the true label, the algorithm reduces the importance of incorrect experts by multiplying their weights by a factor 
+<br>Mistake Bound<br>
+<br>
+<br> Number of mistakes made by the algorithm WM after  rounds
+<br> Number of mistakes made by the best of N experts.
+<br>The following inequality holds: 
+<br>Important Note<br>
+<br>mistake made by the algorithm is of the form  Theorem guarantees that the number of mistakes made by the algorithm is roughly the constant times the mistake made by the best algorithm.
+<br>Lower Bound on <br>
+<br> : optimal mistake bound for <br>
+
+<br>
+<br>In realizable case, there is a number , after which we can be sure that the algorithm has learned the concept.
+<br>After learning, the algorithm will not make any mistakes
+<br>For a fixed concept ,
+
+<br>maximum number of mistakes by  is 
+<br>maximum number of mistakes on the concept class is 
+
+
+<br>Goal: Mistake Bound on 
+<br>Maximum number of points the algorithm can shatter.<br>
+<br>If Halving Algorithm is used, it will discard all experts after iterations, as every hypothesis is bound to make at least one mistake.
+<br>We use a more general and less extreme algorithm called the Weighted Majority Algorithm.
+<br>Vapnik-Chervonenkis (VC) - dimension<br>Implication<br>
+<br><br>
+ <br>
+<br>
+ (when number of experts N is a constant)<br>
+
+<br>
+<br>Fix 
+<br>There exists a stochastic sequence of losses for which the regret of any online learning algorithm verifies 
+<br>There are no experts which are perfect.<br>How many mistakes does the algorithm make before learning the concept?<br>Non-Realizable Case<br>Realizable Case<br>At least one of the experts makes no errors.<br>
+<br>Fix 
+<br>For any , loss of RWM on any sequence can be bounded as follows: 
+<br>for , loss can be bounded as 
+<img src="pasted-image-20250624175142.png" draggable="false">Pasted image 20250624175142.png<br>Mistake Bound<br>Randomized Weighted Majority Algorithm<br>Minimum Bound<br>Prediction with expert advice<br>Objective: <br>
+<br>Reduce regret , also called external regret.
+<br>Compares the cumulative loss of the algorithm to that of the best expert after  rounds. 
+<br>Randomized Online Learning<br>
+<br>
+
+<br>Set of  actions
+
+
+<br>At each round 
+
+<br>A selects a distribution  over the set of actions.
+<br>Receives a loss vector , whose  component  is the loss associated with action .
+<br>Incurs an expected loss 
+<br>Total loss to associated to action  after  rounds is 
+
+
+<br>The minimal loss of a single action is 
+<br>Regret<br>
+<br>Regret after T rounds is the difference between the loss of the algorithm and the loss of the best single action, i.e 
+<br>Problem Setting involves<br>
+<br>
+Expert advice
+
+<br>
+Associated notion of regret
+
+<br>
+At  round, algorithm receives 
+
+<br>input, 
+<br>advice from experts, 
+
+
+<br>
+Algorithm then makes a prediction, receives a true label and incurs loss.
+
+<br>
+After  rounds, algorithm incurs cumulative loss.
+
+<br>Mistake Bound<br>Online Learning<br>
+<br>Stark contrast to PAC learning.
+<br>Training and Testing phases are mixed up.
+<br>No assumption on distribution can/shall be made.
+<br>No notion of generalization.
+<br>Performance is measured using a mistake model and a notion of regret.
+<br>To derive guarantees, we make worst-case or adversarial assumptions.
+<br>
+<br>Learning setting: 
+
+<br> rounds
+<br>At  round, the algorithm
+
+<br>receives an input 
+<br>makes prediction 
+
+
+<br>: is the loss function.
+<br>For binary classification problems, 
+<br>For regression, 
+<br>Objective to to minimize the loss over  rounds where cumulative loss is given by 
+
+
+<br>Average LOO error and generalization error is an unbiased estimate of the generalization error for samples of size  <br>
+<br>Valid for sample size 
+<br> is the number of updates on the sample <br>If a point  contributes to leave-one-out error, i.e., , then the perceptron algorithm will definitely make at least one update on this point <br>
+<br>Assume that the data is linear separable.
+<br>Let  be the hypothesis returned by the Perceptron algorithm after training over a sample  of size  drawn from distribution 
+<br>Then the expected error of  is bounded by 
+<br><br>Implications<br>
+<br>Weight vector after processing  points is a linear combination of the vectors  at which updates were made.
+
+<br>
+
+
+<br>In SVM, they are called support vectors.
+<br>Bound on the number of updates depends only on the normalized margin , and not on the dimensionality(N) of the space.
+<br>Upper bound on the number of updates done by perceptron algorithm<br>
+<br>Number of points 
+<br>
+<br>
+<br>Assume there exists  and  such that
+
+<br> , 
+
+
+<br>Number of updates made by perceptron algorithm when processing  is bounded by 
+<br> is the data separating hyperplane (or the classifier)<br>
+<br>Iterative training and Testing
+<br>In each iteration
+
+<br>Hold out one single data point and use as test set.
+<br>Remaining points are used as training set.
+<br>Training model then makes a prediction on the held-out data point, and the error is calculated.
+
+
+<br>Repeat for each point, such that each point gets a chance to be held out exactly once.
+<br>LOO is the average of the errors calculated from all the n iterations.
+<br>
+<br>No assumption is made about the sequence of points.
+<br>If the given set  is linearly separable, the algorithm will converge after a finite number of updates.
+<br>if  is small, algorithm convergence is lower.
+<br>We shall link Perceptron algorithm with Leave-one-out error<br>Separate a bunch of positive and negative points by a linear separator<br>Linear Classification<br>Perceptron Algorithm<br>Reason for update<br>
+<br>When algorithm produces a wrong label for point 
+
+<br> is negative
+<br> is updated such that
+
+<br>
+
+
+<br>Idea is to correct the weight vector for it's mistake of misclassification on .
+
+
+<img src="pasted-image-20250624063737.png" draggable="false">Pasted image 20250624063737.png<br>Leave-one-out Error<br>Memory Requirements<br>
+<br>labelling options 
+<br>Number of bits to encode the label 
+<br>Number of bits to encode the description of entire tree 
+<br>Number of hypothesis 
+<br>Substituting for , we get<br>
+<br>Straightforward substitution of size of hypothesis class to find the generalization bound <br>Prefix-free description<br>
+<br>Represent a tree of n nodes using a string 
+
+<br>consisting of  blocks
+<br>each block contains  bits
+
+
+<br>First  blocks   Encode nodes of the tree
+<br>Last block  Indicates end of code
+<br>Block label  between 
+
+<br>When label is  
+
+<br>Splitting  
+
+
+<br>When label is 
+
+<br>node is a leaf with value 1
+
+
+<br>When label is 
+
+<br>node is a leaf with value 0
+
+
+<br>When label is 
+
+<br>node is an end node
+
+
+
+
+<br>How is it useful in finding difference between empirical error of a hypothesis and it's risk.<br>Sample Complexity<br>
+<br> splitting rule of the form  for some 
+<br>Size of the hypothesis class
+
+<br>Any classifier from  can be represented by
+
+<br> leaves
+<br> depth
+
+
+<br>Hypothesis set is very large, and might overfit the data.
+<br>Can we reduce the hypothesis set to something more reasonable.
+
+
+<br>Use Prefix-free description.
+<br>
+<br>Predicts the label associated with an instance by travelling through a tree
+<br>Strategy is to split a node based on a threshold
+<br>Universal Concept Class<br>
+<br>
+<br> : Concept class formed by all subsets of 
+<br>Number of combination of  = 
+<br>Number of hypothesis = <br>
+
+<br>
+<br>Number of training samples required is exponential in , which is the cost of representation of a single point in <br>
+
+<br>Algorithm is not efficiently PAC learnable
+<br>Decision Trees<br>Just because you increase the number samples doesn't mean it will necessarily improve the algorithm's performance.<br>Uniform Convergence Bound<br>
+<br><br>
+ is true with probability at least 
+<br>Minimum Description Length Principal<br>
+<br>There exists an hypothesis in  which is consistent.
+<br>This means, the concept  is in .
+<br>
+<br>
+<br>  is true if 
+<br> is true with probability at least 
+<br>Also refer to <br>
+<br>Conjusnction of boolean liternals
+<br>k-term DNF examples from lectures
+<br>Example<br>
+<br>More often seen in practice.
+<br>Use Hoeffding's inequality to relate empirical error to generalization error
+<br>The absolute difference between Generalization Error and Empirical Error can be limited to an extent even if the hypothesis makes some mistakes on the training set. 
+<br>The following inequality holds with probability at least  
+<br>Point to remember.<br>
+<br>Simply increasing the sample size will not improve the performance because the bound is under a square root. 
+<br>Refer to the bias coin toss problem from lecture. Since, the coin is biased there is always going to be an error compared to  true coin concept. and the more samples of the bias coin we collect, the closer we will get to the concept of bias coin.<br>Generalization error is bounded to empirical error in both cases. By how much is the difference between consistent and inconsistent cases<br>At least one hypothesis learns the concept correctly<br>Finite , consistent case<br>
+<br>Finite 
+<br>Algorithm 
+<br>Sample 
+<br> as before
+<br>Finite , inconsistent case<br>No guarantee of complete learning of a concept<br>The probability of error occurring more than  is less than the  term<br>How good can generalization get in case of finite hypothesis set.<br>
+(Note: Axis-aligned rectangles was a infinite hypothesis set)<br>Learning Bound<br>Hypothesis: <br>
+Target Concept: <br>
+Sample: <br>Task:<br>
+Use the Sample  to learn a hypothesis , such that generalization error is small, with respect to actual concept .<br>Description:<br>
+<br>Use some sample  from an underlying distribution .
+<br>Generalization Error is the error when algorithm tries to estimate on unseen data.
+
+<br>This is also called Risk.
+<br>
+
+
+<br>Empirical Error is the average error of  over the sample 
+
+<br>
+
+
+<br>Concept Class: <br>
+Algorithm: <br>
+Accuracy: <br>
+Confidence: <br>Description:<br>
+ is PAC learnable with , if,<br>
+<br>The sample size,  holds that 
+<br>Probability of risk being less than  is 
+<br>If the sample size is greater than the ,  is PAC learnable.
+<br>If  runs in  it is efficiently PAC learnable.
+<br>We try to find the polynomial for several cases<br>PAC Learning Model<br>PAC Learning Definition]]></description><link>clt.html</link><guid isPermaLink="false">CLT.canvas</guid><pubDate>Wed, 25 Jun 2025 01:00:23 GMT</pubDate><enclosure url="pasted-image-20250624161615.png" length="0" type="image/png"/><content:encoded>&lt;figure&gt;&lt;img src=&quot;pasted-image-20250624161615.png&quot;&gt;&lt;/figure&gt;</content:encoded></item></channel></rss>
